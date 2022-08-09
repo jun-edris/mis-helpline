@@ -19,7 +19,6 @@ import {
 	SnackbarError,
 	SnackbarSuccess,
 } from '../../../../components/SnackBars';
-// import { FetchContext } from '../../../../context/FetchContext';
 import publicFetch from '../../../../utils/fetch';
 import { staffSignupSchema } from '../../../../schema/schema';
 

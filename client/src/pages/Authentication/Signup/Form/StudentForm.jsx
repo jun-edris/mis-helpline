@@ -20,9 +20,8 @@ import {
 	SnackbarError,
 	SnackbarSuccess,
 } from '../../../../components/SnackBars';
-// import { FetchContext } from '../../../context/FetchContext';
 import publicFetch from '../../../../utils/fetch';
-import { FetchContext } from "../../../../context/FetchContext";
+import { FetchContext } from '../../../../context/FetchContext';
 
 const linkColor = blue[400];
 

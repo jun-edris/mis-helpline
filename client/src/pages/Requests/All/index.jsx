@@ -1,7 +1,6 @@
 import {
 	Box,
 	Chip,
-	CircularProgress,
 	Paper,
 	Table,
 	TableBody,

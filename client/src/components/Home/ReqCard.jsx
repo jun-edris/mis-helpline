@@ -2,7 +2,6 @@ import {
 	Avatar,
 	Grid,
 	IconButton,
-	Paper,
 	Typography,
 	Box,
 } from '@mui/material';

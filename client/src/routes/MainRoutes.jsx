@@ -1,8 +1,4 @@
 import { lazy, useContext } from 'react';
-
-// project imports
-// import MainLayout from 'layout/MainLayout';
-// import MinimalLayout from 'layout/MinimalLayout';
 import Loadable from '../components/Loadable';
 import { AuthContext } from '../context/AuthContext';
 import { Navigate, Outlet } from 'react-router-dom';
@@ -53,8 +49,6 @@ const MainRoutes = {
 				},
 			],
 		},
-
-		
 	],
 };
 

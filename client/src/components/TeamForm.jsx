@@ -2,20 +2,16 @@ import {
 	Box,
 	CircularProgress,
 	FormHelperText,
-	Grid,
-	IconButton,
 	MenuItem,
 	Select,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { FieldArray, Form, Formik, useField } from 'formik';
+import { Form, Formik, useField } from 'formik';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { FetchContext } from '../context/FetchContext';
 import CustomButton from './common/CustomButton';
 import { teamSchema } from '../schema/schema';
 import { SnackbarSuccess } from './SnackBars';
-import InputField from './common/InputField';
 
 const MemberSelection = ({ name, ...props }) => {
 	const [field, meta] = useField(name);

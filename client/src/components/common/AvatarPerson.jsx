@@ -3,8 +3,8 @@ import React from 'react';
 
 const AvatarPerson = ({ pic, text }) => {
 	return (
-		<Box>
-			<Avatar alt={text} src={pic} sx={{ width: 150, height: 150 }} />
+		<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+			<Avatar alt={text} src={pic} sx={{ width: 180, height: 180 }} />
 		</Box>
 	);
 };

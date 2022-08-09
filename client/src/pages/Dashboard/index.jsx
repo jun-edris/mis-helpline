@@ -10,8 +10,6 @@ import {
 	cyan,
 	lightGreen,
 } from '@mui/material/colors';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
@@ -19,11 +17,10 @@ import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import Chart from 'react-apexcharts';
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
 import { FetchContext } from '../../context/FetchContext';
 import DisplayCountPaper from '../../components/common/DisplayCountPaper';
 import Footer from '../../components/Footer';
-import AvatarPerson from '../../components/common/AvatarPerson';
+import Devs from '../../components/Devs';
 
 const pendingColor = blue[900];
 const dataColor = teal[600];
@@ -38,7 +35,6 @@ const rejectColor = red[900];
 
 const Dashboard = () => {
 	const fetchContext = useContext(FetchContext);
-	const authContext = useContext(AuthContext);
 	const [reqCount, setReqCount] = useState(0);
 	const [approveReqCount, setApproveReqCount] = useState(0);
 	const [completeReqCount, setCompleteReqCount] = useState(0);
@@ -441,18 +437,7 @@ const Dashboard = () => {
 					</Paper>
 				</Box>
 				<Box mt={7}>
-					<Typography variant="h6">Dev Team</Typography>
-					<Carousel>
-						<AvatarPerson />
-						<AvatarPerson />
-						<AvatarPerson />
-						<AvatarPerson />
-						<AvatarPerson />
-						<AvatarPerson />
-						<AvatarPerson />
-						<AvatarPerson />
-						<AvatarPerson />
-					</Carousel>
+					<Devs />
 				</Box>
 			</Box>
 			<Footer />

@@ -17,24 +17,6 @@ const Team = Loadable(lazy(() => import('../pages/Users/Team')));
 const Users = Loadable(lazy(() => import('../pages/Users/Users')));
 const Assigned = Loadable(lazy(() => import('../pages/Requests/Assigned')));
 
-// const AuthorizedRoute = ({ children, ...rest }) => {
-// 	const authContext = useContext(AuthContext);
-
-// 	if (
-// 		authContext.isAuthenticated() &&
-// 		(authContext.isSuperAdmin() ||
-// 			authContext.isAdmin() ||
-// 			authContext.isStaff() ||
-// 			authContext.isFaculty)
-// 	) {
-// 		return <Outlet />;
-// 	}
-// 	if (authContext.isAuthenticated()) {
-// 		return <Navigate to="/home" />;
-// 	}
-// 	return <Navigate to="/" />;
-// };
-
 const AuthorizedRoute = ({ children, ...rest }) => {
 	const authContext = useContext(AuthContext);
 

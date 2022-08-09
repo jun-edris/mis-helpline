@@ -10,7 +10,6 @@ import {
 	TableRow,
 	Typography,
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useContext, useEffect, useState } from 'react';
 import CustomButton from '../../../../components/common/CustomButton';

@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import CustomButton from '../../components/common/CustomButton';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Devs from '../../components/Devs';
+import Footer from '../../components/Footer';
 
 const Home = () => {
 	const theme = useTheme();
@@ -64,6 +66,12 @@ const Home = () => {
 					</Grid>
 				</Container>
 			</Box>
+			<Box mt={30}>
+				<Container>
+					<Devs />
+				</Container>
+			</Box>
+			<Footer />
 		</div>
 	);
 };
