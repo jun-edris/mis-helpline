@@ -56,33 +56,54 @@ const MyRequest = () => {
 	useEffect(() => {
 		getUserRequests();
 
-		const requestChannel = authContext.pusher.subscribe('request');
+		const requestChannel = authContext?.pusher.subscribe('request');
 
 		requestChannel.bind('created', (newReq) => {
 			setRecords((records) => [...records, newReq]);
 			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
 		});
+		requestChannel.bind('approved', (req) => {
+			getUserRequests();
+			// setRecords(
+			// 	records?.map((request) =>
+			// 		request._id === req._id ? { ...records, req } : request
+			// 	)
+			// );
+			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+		});
+
+		requestChannel.bind('rejected', (req) => {
+			getUserRequests();
+			// setRecords(
+			// 	records?.map((request) =>
+			// 		request._id === req._id ? { ...records, req } : request
+			// 	)
+			// );
+			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+		});
 
 		requestChannel.bind('updated', (updateReq) => {
-			setRecords(
-				records?.map((request) =>
-					request._id === updateReq._id ? { ...records, updateReq } : request
-				)
-			);
+			getUserRequests();
+			// setRecords(
+			// 	records?.map((request) =>
+			// 		request._id === updateReq._id ? { ...records, updateReq } : request
+			// 	)
+			// );
 			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
 		});
 
 		requestChannel.bind('deleted-req', (deletedReq) => {
-			setRecords(
-				records.filter((req, index) => req._id !== deletedReq[index]._id)
-			);
+			getUserRequests();
+			// setRecords(
+			// 	records.filter((req, index) => req._id !== deletedReq[index]._id)
+			// );
 			fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
 		});
 
-		return () => {
-			requestChannel.unbind_all();
-			requestChannel.unsubscribe('request');
-		};
+		// return () => {
+		// 	requestChannel.unbind_all();
+		// 	requestChannel.unsubscribe('request');
+		// };
 	}, [fetchContext.refreshKey]);
 
 	return (
@@ -135,12 +156,14 @@ const MyRequest = () => {
 														record?.rejected === false && (
 															<Chip label="In Evaluation" color="warning" />
 														)}
-													{record?.approved === true && (
-														<Chip label="Approved" color="success" />
-													)}
-													{record?.completed === true && (
-														<Chip label="Completed" color="success" />
-													)}
+													{record?.approved === true &&
+														record?.completed === false && (
+															<Chip label="Approved" color="success" />
+														)}
+													{record?.completed === true &&
+														record?.approved === true && (
+															<Chip label="Completed" color="success" />
+														)}
 													{record?.pending === true && (
 														<Chip label="Pending" color="secondary" />
 													)}
@@ -150,7 +173,7 @@ const MyRequest = () => {
 												</Box>
 											</TableCell>
 											<TableCell>
-												{!record?.rejected && (
+												{!record?.rejected && !record?.completed && (
 													<CustomButton
 														color="error"
 														onClick={() => cancelRequest(record?._id)}

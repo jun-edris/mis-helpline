@@ -44,7 +44,7 @@ const Assigned = () => {
 		try {
 			setLoading(true);
 			const { data } = await fetchContext.authAxios.patch(
-				`/request/complete/${values.id}`,
+				`/request/complete/${values?._id}`,
 				values
 			);
 			setSuccessMessage(data.message);
@@ -57,6 +57,7 @@ const Assigned = () => {
 			setError(true);
 			setSuccessMessage('');
 			setLoading(false);
+			console.log(e);
 		}
 	};
 
@@ -65,23 +66,26 @@ const Assigned = () => {
 		const requestChannel = authContext.pusher.subscribe('request');
 
 		requestChannel.bind('created', (newReq) => {
-			setRecords((records) => [...records, newReq]);
+			getAssignedRequests();
+			// setRecords((records) => [...records, newReq]);
 			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
 		});
 
 		requestChannel.bind('updated', (updateReq) => {
-			setRecords(
-				records.map((request) =>
-					request._id === updateReq._id ? { ...records, updateReq } : request
-				)
-			);
+			getAssignedRequests();
+			// setRecords(
+			// 	records.map((request) =>
+			// 		request._id === updateReq._id ? { ...records, updateReq } : request
+			// 	)
+			// );
 			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
 		});
 
 		requestChannel.bind('deleted-req', (deletedReq) => {
-			setRecords(
-				records.filter((req, index) => req._id !== deletedReq[index]._id)
-			);
+			getAssignedRequests();
+			// setRecords(
+			// 	records.filter((req, index) => req._id !== deletedReq[index]._id)
+			// );
 			fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
 		});
 

@@ -334,7 +334,7 @@ exports.signup = async (req, res) => {
 
 exports.request = async (req, res) => {
 	try {
-		let bodyText = '';
+		// let bodyText = '';
 		const { title, reqType, description } = req.body;
 		const { sub } = req.user;
 
@@ -350,32 +350,32 @@ exports.request = async (req, res) => {
 		const newRequest = new Req(reqData);
 		const savedRequest = await newRequest.save();
 
-		const requestedUser = await User.findById(savedRequest?.user).lean();
+		// const requestedUser = await User.findById(savedRequest?.user).lean();
 
-		if (requestedUser?.role === 'student')
-			bodyText = `A <b>${requestedUser?.role}</b> named <b>${requestedUser?.firstName} ${requestedUser?.lastName}</b> has requested a <b>${savedRequest?.reqType}</b> in <b>${savedRequest?.title}</b>`;
-		if (requestedUser?.role === 'staff')
-			bodyText = `A <b>${requestedUser?.role}</b> named ${requestedUser?.firstName} ${requestedUser?.lastName} has requested a <b>${savedRequest?.reqType}</b> in <b>${savedRequest?.title}</b>`;
-		if (requestedUser?.role === 'faculty')
-			bodyText = `A <b>${requestedUser?.role}</b> named <b>${
-				requestedUser?.firstName
-			} ${requestedUser?.lastName}</b> of <b>${
-				requestedUser?.department
-			}</b> department at${
-				requestedUser?.office ? ' ' + requestedUser?.office : ''
-			} office has requested a <b>${savedRequest?.reqType}</b> in <b>${
-				savedRequest?.title
-			}</b>`;
+		// if (requestedUser?.role === 'student')
+		// 	bodyText = `A <b>${requestedUser?.role}</b> named <b>${requestedUser?.firstName} ${requestedUser?.lastName}</b> has requested a <b>${savedRequest?.reqType}</b> in <b>${savedRequest?.title}</b>`;
+		// if (requestedUser?.role === 'staff')
+		// 	bodyText = `A <b>${requestedUser?.role}</b> named ${requestedUser?.firstName} ${requestedUser?.lastName} has requested a <b>${savedRequest?.reqType}</b> in <b>${savedRequest?.title}</b>`;
+		// if (requestedUser?.role === 'faculty')
+		// 	bodyText = `A <b>${requestedUser?.role}</b> named <b>${
+		// 		requestedUser?.firstName
+		// 	} ${requestedUser?.lastName}</b> of <b>${
+		// 		requestedUser?.department
+		// 	}</b> department at${
+		// 		requestedUser?.office ? ' ' + requestedUser?.office : ''
+		// 	} office has requested a <b>${savedRequest?.reqType}</b> in <b>${
+		// 		savedRequest?.title
+		// 	}</b>`;
 
-		transporter
-			.sendMail({
-				from: '"MIS Helpline"', // sender address
-				to: process.env.MAIL_USER, // list of receivers
-				subject: 'MIS Request', // Subject line
-				text: `Request`, // plain text body
-				html: bodyText, // html body
-			})
-			.catch(console.error);
+		// transporter
+		// 	.sendMail({
+		// 		from: '"MIS Helpline"', // sender address
+		// 		to: process.env.MAIL_USER, // list of receivers
+		// 		subject: 'MIS Request', // Subject line
+		// 		text: `Request`, // plain text body
+		// 		html: bodyText, // html body
+		// 	})
+		// 	.catch(console.error);
 		pusher.trigger('request', 'created', savedRequest);
 		return res.status(201).json({
 			message: 'Request created successfully!',
@@ -409,11 +409,9 @@ exports.ticket = async (req, res) => {
 			{ new: true }
 		);
 
-		if (addTicket) {
-			await addTicket.save();
-			pusher.trigger('request', 'updated', addTicket);
-			return res.status(200).json({ message: 'Success' });
-		}
+		await addTicket.save();
+		pusher.trigger('request', 'ticket', addTicket);
+		return res.status(200).json({ message: 'Success' });
 	} catch (e) {
 		console.log(e);
 		res.status(400).json({

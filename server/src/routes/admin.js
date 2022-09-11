@@ -1,5 +1,5 @@
 const express = require('express');
-const { completeRequest } = require('../controllers/Admin');
+const { completeReq } = require('../controllers/Admin');
 const { checkJwt, attachUser, requireAdmin } = require('./../middlewares');
 const router = express.Router();
 
@@ -8,7 +8,7 @@ router.patch(
 	attachUser,
 	checkJwt,
 	requireAdmin,
-	completeRequest
+	completeReq
 );
 
 module.exports = router;

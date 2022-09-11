@@ -50,30 +50,48 @@ const All = () => {
 		const requestChannel = authContext.pusher.subscribe('request');
 
 		requestChannel.bind('created', (newReq) => {
-			setRecords((records) => [...records, newReq]);
+			// setRecords((records) => [...records, newReq]);
+			getRequests();
 			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
 		});
 
 		requestChannel.bind('updated', (updateReq) => {
-			setRecords(
-				records.map((request) =>
-					request._id === updateReq._id ? { ...records, updateReq } : request
-				)
-			);
+			getRequests();
+			// setRecords(
+			// 	records.map((request) =>
+			// 		request._id === updateReq._id ? { ...records, updateReq } : request
+			// 	)
+			// );
+			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+		});
+
+		requestChannel.bind('approved', (updateReq) => {
+			getRequests();
+			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+		});
+
+		requestChannel.bind('rejected', (req) => {
+			getRequests();
+			// setRecords(
+			// 	records?.map((request) =>
+			// 		request._id === req._id ? { ...records, req } : request
+			// 	)
+			// );
 			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
 		});
 
 		requestChannel.bind('deleted-req', (deletedReq) => {
-			setRecords(
-				records.filter((req, index) => req._id !== deletedReq[index]._id)
-			);
+			getRequests();
+			// setRecords(
+			// 	records.filter((req, index) => req._id !== deletedReq[index]._id)
+			// );
 			fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
 		});
 
-		return () => {
-			requestChannel.unbind_all();
-			requestChannel.unsubscribe('request');
-		};
+		// return () => {
+		// 	requestChannel.unbind_all();
+		// 	requestChannel.unsubscribe('request');
+		// };
 	}, [fetchContext.refreshKey]);
 
 	return (

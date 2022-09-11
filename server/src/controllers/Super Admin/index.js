@@ -306,17 +306,17 @@ exports.approveReq = async (req, res) => {
 
 			const userRequested = await User.findById(approvedReq.user);
 
-			transporter
-				.sendMail({
-					from: '"MIS Helpline"', // sender address
-					to: userRequested.email, // list of receivers
-					subject: 'MIS Approved Request', // Subject line
-					text: `Hi ${userRequested.firstName}, your request has already been approved and our team is on its way to help you on your request.`, // plain text body
-					html: `<b>Hi ${userRequested.firstName}, your request has already been approved and our team is on its way to help you on your request.</b>`, // html body
-				})
-				.catch(console.error);
+			// transporter
+			// 	.sendMail({
+			// 		from: '"MIS Helpline"', // sender address
+			// 		to: userRequested.email, // list of receivers
+			// 		subject: 'MIS Approved Request', // Subject line
+			// 		text: `Hi ${userRequested.firstName}, your request has already been approved and our team is on its way to help you on your request.`, // plain text body
+			// 		html: `<b>Hi ${userRequested.firstName}, your request has already been approved and our team is on its way to help you on your request.</b>`, // html body
+			// 	})
+			// 	.catch(console.error);
 
-			pusher.trigger('request', 'updated', approvedReq);
+			pusher.trigger('request', 'approved', approvedReq);
 			res.status(200).send({
 				message: 'Success',
 			});
@@ -341,17 +341,17 @@ exports.rejectReq = async (req, res) => {
 
 			const userRequested = await User.findById(rejectedReq.user);
 
-			transporter
-				.sendMail({
-					from: '"MIS Helpline"', // sender address
-					to: userRequested.email, // list of receivers
-					subject: 'MIS Rejected Request', // Subject line
-					text: `Hi ${userRequested.firstName}, we apologize that we can not fulfill your request due to: ${reason}`, // plain text body
-					html: `<b>Hi ${userRequested.firstName}, we apologize that we can not fulfill your request due to: ${reason}</b>`, // html body
-				})
-				.catch(console.error);
+			// transporter
+			// 	.sendMail({
+			// 		from: '"MIS Helpline"', // sender address
+			// 		to: userRequested.email, // list of receivers
+			// 		subject: 'MIS Rejected Request', // Subject line
+			// 		text: `Hi ${userRequested.firstName}, we apologize that we can not fulfill your request due to: ${reason}`, // plain text body
+			// 		html: `<b>Hi ${userRequested.firstName}, we apologize that we can not fulfill your request due to: ${reason}</b>`, // html body
+			// 	})
+			// 	.catch(console.error);
 
-			pusher.trigger('request', 'updated', rejectedReq);
+			pusher.trigger('request', 'rejected', rejectedReq);
 			res.status(200).send({
 				message: 'Success',
 			});

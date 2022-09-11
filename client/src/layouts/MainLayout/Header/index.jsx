@@ -19,6 +19,35 @@ const Header = () => {
 	const authContext = useContext(AuthContext);
 	const fetchContext = useContext(FetchContext);
 
+	const stringToColor = (string) => {
+		let hash = 0;
+		let i;
+
+		/* eslint-disable no-bitwise */
+		for (i = 0; i < string.length; i += 1) {
+			hash = string.charCodeAt(i) + ((hash << 5) - hash);
+		}
+
+		let color = '#';
+
+		for (i = 0; i < 3; i += 1) {
+			const value = (hash >> (i * 8)) & 0xff;
+			color += `00${value.toString(16)}`.slice(-2);
+		}
+		/* eslint-enable no-bitwise */
+
+		return color;
+	};
+
+	const stringAvatar = (name) => {
+		return {
+			sx: {
+				bgcolor: stringToColor(name),
+			},
+			children: `${name.split(' ')[0][0]}${name.split(' ').pop()[0]}`,
+		};
+	};
+
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
@@ -51,7 +80,11 @@ const Header = () => {
 					</Grid>
 					<Tooltip title="Open settings">
 						<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-							<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+							<Avatar
+								{...stringAvatar(
+									`${authContext.authState.userInfo.firstName} ${authContext.authState.userInfo.lastName}`
+								)}
+							/>
 						</IconButton>
 					</Tooltip>
 					<Menu

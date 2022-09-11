@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userRoute = require('./routes/user');
+const adminRoute = require('./routes/admin');
 const superAdminRoute = require('./routes/superAdmin');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api', userRoute);
+app.use('/api', adminRoute);
 app.use('/api', superAdminRoute);
 
 mongoose
