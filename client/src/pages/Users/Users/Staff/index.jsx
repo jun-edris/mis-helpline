@@ -92,6 +92,7 @@ const Staff = () => {
 			usersChannel.unbind_all();
 			usersChannel.unsubscribe('users');
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchContext.refreshKey]);
 
 	return (

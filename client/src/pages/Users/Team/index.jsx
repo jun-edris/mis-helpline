@@ -76,6 +76,7 @@ const Team = () => {
 			teamsChannel.unbind_all();
 			teamsChannel.unsubscribe('team');
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchContext.refreshKey]);
 
 	return (

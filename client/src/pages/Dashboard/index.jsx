@@ -209,6 +209,7 @@ const Dashboard = () => {
 		getHardwareReqCount();
 		getNetworkReqCount();
 		getOtherReqCount();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchContext.refreshKey]);
 
 	return (

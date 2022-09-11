@@ -98,6 +98,7 @@ const Faculty = () => {
 		// return () => {
 		// 	second;
 		// };
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchContext.refreshKey]);
 
 	return (

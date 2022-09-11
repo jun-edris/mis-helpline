@@ -82,6 +82,7 @@ const Approve = ({ record, handleClose }) => {
 		// return () => {
 		// 	second;
 		// };
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const date = new Date(record?.createdAt);
