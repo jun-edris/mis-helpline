@@ -7,7 +7,7 @@ const HardwareTeam = require('./../../models/hardwareTeam');
 const NetworkTeam = require('./../../models/networkTeam');
 const OthersTeam = require('./../../models/othersTeam');
 const Request = require('./../../models/request');
-const { pusher, transporter } = require('./../../utils');
+const { pusher } = require('./../../utils');
 
 const app = express();
 app.use(cors());

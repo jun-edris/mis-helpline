@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const Request = require('./../../models/request');
-const { pusher, transporter } = require('./../../utils');
+const { pusher } = require('./../../utils');
 
 const app = express();
 app.use(cors());

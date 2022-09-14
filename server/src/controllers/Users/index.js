@@ -9,7 +9,6 @@ const {
 	verifyPassword,
 	hashPassword,
 	pusher,
-	transporter,
 } = require('./../../utils');
 
 const app = express();

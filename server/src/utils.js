@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Pusher = require('pusher');
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 
 const createToken = (user) => {
 	// Sign the JWT
@@ -56,16 +56,16 @@ const pusher = new Pusher({
 	useTLS: true,
 });
 
-const transporter = nodemailer.createTransport({
-	host: 'smtp.gmail.com',
-	port: 465,
-	secure: true,
-	requireTLS: true,
-	auth: {
-		user: process.env.MAIL_USER,
-		pass: process.env.MAIL_PASS,
-	},
-});
+// const transporter = nodemailer.createTransport({
+// 	host: 'smtp.gmail.com',
+// 	port: 465,
+// 	secure: true,
+// 	requireTLS: true,
+// 	auth: {
+// 		user: process.env.MAIL_USER,
+// 		pass: process.env.MAIL_PASS,
+// 	},
+// });
 
 module.exports = {
 	createToken,
