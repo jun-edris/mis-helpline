@@ -49,33 +49,36 @@ const Team = () => {
 	};
 
 	useEffect(() => {
-		getTeam(requestType);
-		const teamsChannel = authContext.pusher.subscribe('team');
+		try {
+			getTeam(requestType);
+			const teamsChannel = authContext.pusher.subscribe('team');
 
-		teamsChannel.bind('created', (newTeams) => {
-			setRecords((records) => [...records, newTeams]);
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			teamsChannel.bind('created', (newTeams) => {
+				setRecords((records) => [...records, newTeams]);
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		teamsChannel.bind('updated', (updatedTeam) => {
-			setRecords(
-				records?.map((team) =>
-					team._id === updatedTeam._id ? { ...records, updatedTeam } : team
-				)
-			);
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			teamsChannel.bind('updated', (updatedTeam) => {
+				setRecords(
+					records?.map((team) =>
+						team._id === updatedTeam._id ? { ...records, updatedTeam } : team
+					)
+				);
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		teamsChannel.bind('deleted-team', (deletedTeam) => {
-			setRecords(
-				records?.filter((team, index) => team._id !== deletedTeam[index]._id)
-			);
-			fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
-		});
-		return () => {
-			teamsChannel.unbind_all();
-			teamsChannel.unsubscribe('team');
-		};
+			teamsChannel.bind('deleted-team', (deletedTeam) => {
+				setRecords(
+					records?.filter((team, index) => team._id !== deletedTeam[index]._id)
+				);
+				fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
+			});
+			return () => {
+				teamsChannel.unbind_all();
+				teamsChannel.unsubscribe('team');
+			};
+		} catch (error) {}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchContext.refreshKey]);
 
@@ -132,7 +135,11 @@ const Team = () => {
 							</CustomButton>
 						</Box>
 						<Box sx={{ marginTop: 2 }}>
-							<TeamTable type={requestType} records={records} setRecords={setRecords}  />
+							<TeamTable
+								type={requestType}
+								records={records}
+								setRecords={setRecords}
+							/>
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={1}>
@@ -152,7 +159,11 @@ const Team = () => {
 							</CustomButton>
 						</Box>
 						<Box sx={{ marginTop: 2 }}>
-							<TeamTable type={requestType} records={records} setRecords={setRecords} />
+							<TeamTable
+								type={requestType}
+								records={records}
+								setRecords={setRecords}
+							/>
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={2}>
@@ -172,7 +183,11 @@ const Team = () => {
 							</CustomButton>
 						</Box>
 						<Box sx={{ marginTop: 2 }}>
-							<TeamTable type={requestType} records={records} setRecords={setRecords} />
+							<TeamTable
+								type={requestType}
+								records={records}
+								setRecords={setRecords}
+							/>
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={3}>
@@ -192,7 +207,11 @@ const Team = () => {
 							</CustomButton>
 						</Box>
 						<Box sx={{ marginTop: 2 }}>
-							<TeamTable type={requestType} records={records} setRecords={setRecords} />
+							<TeamTable
+								type={requestType}
+								records={records}
+								setRecords={setRecords}
+							/>
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={4}>
@@ -212,7 +231,11 @@ const Team = () => {
 							</CustomButton>
 						</Box>
 						<Box sx={{ marginTop: 2 }}>
-							<TeamTable type={requestType} records={records} setRecords={setRecords} />
+							<TeamTable
+								type={requestType}
+								records={records}
+								setRecords={setRecords}
+							/>
 						</Box>
 					</TabPanel>
 				</Box>

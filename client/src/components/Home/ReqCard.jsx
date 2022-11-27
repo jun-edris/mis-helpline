@@ -1,17 +1,11 @@
-import {
-	Avatar,
-	Grid,
-	IconButton,
-	Typography,
-	Box,
-} from '@mui/material';
+import { Avatar, Grid, IconButton, Typography, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import CustomPaper from '../common/CustomPaper';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const ReqCard = ({ icon, title, content, url }) => {
+const ReqCard = ({ indexKey, icon, title, content, url }) => {
 	return (
-		<CustomPaper>
+		<CustomPaper key={indexKey}>
 			<Grid
 				container
 				direction="column"
@@ -54,7 +48,7 @@ const ReqCard = ({ icon, title, content, url }) => {
 				<Grid item>
 					<Box sx={{ marginTop: 1, height: 80, textAlign: 'center' }}>
 						{content.map((item, index) => (
-							<Typography variant="body1" component="p">
+							<Typography key={index} variant="body1" component="p">
 								{item}
 							</Typography>
 						))}

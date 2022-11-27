@@ -55,56 +55,40 @@ const MyRequest = () => {
 	};
 
 	useEffect(() => {
-		getUserRequests();
-
-		const requestChannel = authContext?.pusher.subscribe('request');
-
-		requestChannel.bind('created', (newReq) => {
-			setRecords((records) => [...records, newReq]);
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
-		requestChannel.bind('approved', (req) => {
+		try {
 			getUserRequests();
-			// setRecords(
-			// 	records?.map((request) =>
-			// 		request._id === req._id ? { ...records, req } : request
-			// 	)
-			// );
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
 
-		requestChannel.bind('rejected', (req) => {
-			getUserRequests();
-			// setRecords(
-			// 	records?.map((request) =>
-			// 		request._id === req._id ? { ...records, req } : request
-			// 	)
-			// );
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			const requestChannel = authContext?.pusher.subscribe('request');
 
-		requestChannel.bind('updated', (updateReq) => {
-			getUserRequests();
-			// setRecords(
-			// 	records?.map((request) =>
-			// 		request._id === updateReq._id ? { ...records, updateReq } : request
-			// 	)
-			// );
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			requestChannel.bind('created', (newReq) => {
+				setRecords((records) => [...records, newReq]);
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
+			requestChannel.bind('approved', (req) => {
+				getUserRequests();
 
-		requestChannel.bind('deleted-req', (deletedReq) => {
-			getUserRequests();
-			// setRecords(
-			// 	records.filter((req, index) => req._id !== deletedReq[index]._id)
-			// );
-			fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
-		});
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		// return () => {
-		// 	requestChannel.unbind_all();
-		// 	requestChannel.unsubscribe('request');
-		// };
+			requestChannel.bind('rejected', (req) => {
+				getUserRequests();
+
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
+
+			requestChannel.bind('updated', (updateReq) => {
+				getUserRequests();
+
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
+
+			requestChannel.bind('deleted-req', (deletedReq) => {
+				getUserRequests();
+
+				fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
+			});
+		} catch (error) {}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchContext.refreshKey]);
 

@@ -5,6 +5,14 @@ const baseURL =
 		? process.env.REACT_APP_API_URL
 		: 'http://localhost:3001/api';
 
-const publicFetch = axios.create({ baseURL: process.env.REACT_APP_API_URL });
+const publicFetch = axios.create({
+	baseURL: baseURL,
+	withCredentials: true,
+	credentials: 'include',
+	headers: {
+		'Access-Control-Allow-Origin': '*',
+		'Content-Type': 'application/json',
+	},
+});
 
-export default publicFetch;
+export { publicFetch, baseURL };

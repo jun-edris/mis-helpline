@@ -56,6 +56,7 @@ const Home = () => {
 						{reqCardData.map((reqData, index) => (
 							<Grid key={index} item xs={12} sm={6} md={4} lg>
 								<ReqCard
+									key={index}
 									title={reqData?.title}
 									icon={reqData?.icon}
 									content={reqData?.content}

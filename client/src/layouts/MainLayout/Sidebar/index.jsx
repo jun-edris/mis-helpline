@@ -71,13 +71,13 @@ const menu = [
 	},
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ index }) => {
 	const location = useLocation();
 	const [open, setOpen] = React.useState(false);
 	const authContext = useContext(AuthContext);
 
 	return (
-		<Drawer variant="permanent" open={open}>
+		<Drawer variant="permanent" open={open} key={index}>
 			<Box
 				sx={{
 					display: 'flex',
@@ -95,7 +95,6 @@ const Sidebar = () => {
 						let listItemProps = {
 							component: forwardRef((props, ref) => (
 								<Link
-									key={index}
 									ref={ref}
 									{...props}
 									to={`${config.basename}${item.url}`}
@@ -113,6 +112,7 @@ const Sidebar = () => {
 							>
 								<ListItemButton
 									{...listItemProps}
+									key={item.id}
 									sx={{
 										minHeight: 48,
 										justifyContent: open ? 'initial' : 'center',
@@ -121,6 +121,7 @@ const Sidebar = () => {
 									}}
 								>
 									<ListItemIcon
+										key={item.url}
 										sx={{
 											minWidth: 0,
 											mr: open ? 3 : 'auto',
@@ -131,6 +132,7 @@ const Sidebar = () => {
 										{item.icon}
 									</ListItemIcon>
 									<ListItemText
+										key={item.title}
 										primary={item.title}
 										sx={{ opacity: open ? 1 : 0 }}
 									/>
@@ -155,7 +157,6 @@ const Sidebar = () => {
 						let listItemProps = {
 							component: forwardRef((props, ref) => (
 								<Link
-									key={index}
 									ref={ref}
 									{...props}
 									to={`${config.basename}${item.url}`}
@@ -163,12 +164,11 @@ const Sidebar = () => {
 							)),
 						};
 						return (
-							<>
+							<div key={index}>
 								{item.allowedRoles.includes(
 									authContext.authState.userInfo.role
 								) && (
 									<ListItem
-										key={index}
 										disablePadding
 										sx={{
 											display: 'block',
@@ -203,7 +203,7 @@ const Sidebar = () => {
 										</ListItemButton>
 									</ListItem>
 								)}
-							</>
+							</div>
 						);
 					})}
 				</List>
@@ -224,7 +224,6 @@ const Sidebar = () => {
 								let listItemProps = {
 									component: forwardRef((props, ref) => (
 										<Link
-											key={index}
 											ref={ref}
 											{...props}
 											to={`${config.basename}${item.url}`}
@@ -232,12 +231,11 @@ const Sidebar = () => {
 									)),
 								};
 								return (
-									<>
+									<div key={index}>
 										{item.allowedRoles.includes(
 											authContext.authState.userInfo.role
 										) && (
 											<ListItem
-												key={index}
 												disablePadding
 												sx={{
 													display: 'block',
@@ -272,7 +270,7 @@ const Sidebar = () => {
 												</ListItemButton>
 											</ListItem>
 										)}
-									</>
+									</div>
 								);
 							})}
 						</List>

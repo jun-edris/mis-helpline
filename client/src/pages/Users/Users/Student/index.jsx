@@ -65,37 +65,40 @@ const Student = () => {
 	};
 
 	useEffect(() => {
-		getUsers();
-		const usersChannel = authContext.pusher.subscribe('users');
+		try {
+			getUsers();
+			const usersChannel = authContext.pusher.subscribe('users');
 
-		usersChannel.bind('created', (newUsers) => {
-			setRecords((records) => [...records, newUsers]);
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			usersChannel.bind('created', (newUsers) => {
+				setRecords((records) => [...records, newUsers]);
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		usersChannel.bind('updated', (updatedUser) => {
-			setRecords(
-				records.map((user) =>
-					user._id === updatedUser._id ? { ...records, updatedUser } : user
-				)
-			);
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			usersChannel.bind('updated', (updatedUser) => {
+				setRecords(
+					records.map((user) =>
+						user._id === updatedUser._id ? { ...records, updatedUser } : user
+					)
+				);
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		usersChannel.bind('deleted-user', (deletedUser) => {
-			setRecords(
-				records.filter((user, index) => user._id !== deletedUser[index]._id)
-			);
-			fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
-		});
+			usersChannel.bind('deleted-user', (deletedUser) => {
+				setRecords(
+					records.filter((user, index) => user._id !== deletedUser[index]._id)
+				);
+				fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
+			});
 
-		return () => {
-			usersChannel.unbind_all();
-			usersChannel.unsubscribe('users');
-		};
+			return () => {
+				usersChannel.unbind_all();
+				usersChannel.unsubscribe('users');
+			};
+		} catch (error) {}
 		// return () => {
 		// 	second;
 		// };
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchContext.refreshKey]);
 
 	return (

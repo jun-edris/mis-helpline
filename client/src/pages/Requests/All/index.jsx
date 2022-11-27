@@ -47,47 +47,49 @@ const All = () => {
 	};
 
 	useEffect(() => {
-		getRequests();
-		const requestChannel = authContext.pusher.subscribe('request');
-
-		requestChannel.bind('created', (newReq) => {
-			// setRecords((records) => [...records, newReq]);
+		try {
 			getRequests();
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			const requestChannel = authContext.pusher.subscribe('request');
 
-		requestChannel.bind('updated', (updateReq) => {
-			getRequests();
-			// setRecords(
-			// 	records.map((request) =>
-			// 		request._id === updateReq._id ? { ...records, updateReq } : request
-			// 	)
-			// );
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			requestChannel.bind('created', (newReq) => {
+				// setRecords((records) => [...records, newReq]);
+				getRequests();
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		requestChannel.bind('approved', (updateReq) => {
-			getRequests();
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			requestChannel.bind('updated', (updateReq) => {
+				getRequests();
+				// setRecords(
+				// 	records.map((request) =>
+				// 		request._id === updateReq._id ? { ...records, updateReq } : request
+				// 	)
+				// );
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		requestChannel.bind('rejected', (req) => {
-			getRequests();
-			// setRecords(
-			// 	records?.map((request) =>
-			// 		request._id === req._id ? { ...records, req } : request
-			// 	)
-			// );
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			requestChannel.bind('approved', (updateReq) => {
+				getRequests();
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		requestChannel.bind('deleted-req', (deletedReq) => {
-			getRequests();
-			// setRecords(
-			// 	records.filter((req, index) => req._id !== deletedReq[index]._id)
-			// );
-			fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
-		});
+			requestChannel.bind('rejected', (req) => {
+				getRequests();
+				// setRecords(
+				// 	records?.map((request) =>
+				// 		request._id === req._id ? { ...records, req } : request
+				// 	)
+				// );
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
+
+			requestChannel.bind('deleted-req', (deletedReq) => {
+				getRequests();
+				// setRecords(
+				// 	records.filter((req, index) => req._id !== deletedReq[index]._id)
+				// );
+				fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
+			});
+		} catch (error) {}
 
 		// return () => {
 		// 	requestChannel.unbind_all();

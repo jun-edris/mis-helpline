@@ -289,10 +289,6 @@ const RequestForm = () => {
 										rows={5}
 										sx={{ marginTop: 1.5 }}
 										name="description"
-										onKeyPress={(evt) => {
-											const alpha = /^[a-zA-Z\s]*$/;
-											evt.key.replace(alpha, '') && evt.preventDefault();
-										}}
 									/>
 									<Box sx={{ marginTop: 5 }}>
 										<CustomButton

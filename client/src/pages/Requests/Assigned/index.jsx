@@ -63,37 +63,39 @@ const Assigned = () => {
 	};
 
 	useEffect(() => {
-		getAssignedRequests();
-		const requestChannel = authContext.pusher.subscribe('request');
-
-		requestChannel.bind('created', (newReq) => {
+		try {
 			getAssignedRequests();
-			// setRecords((records) => [...records, newReq]);
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			const requestChannel = authContext.pusher.subscribe('request');
 
-		requestChannel.bind('updated', (updateReq) => {
-			getAssignedRequests();
-			// setRecords(
-			// 	records.map((request) =>
-			// 		request._id === updateReq._id ? { ...records, updateReq } : request
-			// 	)
-			// );
-			fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
-		});
+			requestChannel.bind('created', (newReq) => {
+				getAssignedRequests();
+				// setRecords((records) => [...records, newReq]);
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		requestChannel.bind('deleted-req', (deletedReq) => {
-			getAssignedRequests();
-			// setRecords(
-			// 	records.filter((req, index) => req._id !== deletedReq[index]._id)
-			// );
-			fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
-		});
+			requestChannel.bind('updated', (updateReq) => {
+				getAssignedRequests();
+				// setRecords(
+				// 	records.map((request) =>
+				// 		request._id === updateReq._id ? { ...records, updateReq } : request
+				// 	)
+				// );
+				fetchContext.setRefreshKey((fetchContext.refreshKey = +1));
+			});
 
-		return () => {
-			requestChannel.unbind_all();
-			requestChannel.unsubscribe('request');
-		};
+			requestChannel.bind('deleted-req', (deletedReq) => {
+				getAssignedRequests();
+				// setRecords(
+				// 	records.filter((req, index) => req._id !== deletedReq[index]._id)
+				// );
+				fetchContext.setRefreshKey(fetchContext.refreshKey + 1);
+			});
+			return () => {
+				requestChannel.unbind_all();
+				requestChannel.unsubscribe('request');
+			};
+		} catch (error) {}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchContext.refreshKey]);
 

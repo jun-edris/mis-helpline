@@ -36,9 +36,7 @@ const Header = () => {
 			await fetchContext.authAxios.get('/logout');
 			authContext.logout();
 			history.push('/');
-		} catch (error) {
-			console.log(error?.response?.message);
-		}
+		} catch (error) {}
 	};
 
 	const stringToColor = (string) => {

@@ -17,7 +17,7 @@ import { loginSchema } from '../../../schema/schema';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { blue } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
-import publicFetch from '../../../utils/fetch';
+import { publicFetch } from '../../../utils/fetch';
 import { SnackbarError, SnackbarSuccess } from '../../../components/SnackBars';
 import { AuthContext } from '../../../context/AuthContext';
 

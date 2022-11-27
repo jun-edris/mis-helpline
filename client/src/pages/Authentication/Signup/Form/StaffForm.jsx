@@ -19,7 +19,7 @@ import {
 	SnackbarError,
 	SnackbarSuccess,
 } from '../../../../components/SnackBars';
-import publicFetch from '../../../../utils/fetch';
+import { publicFetch } from '../../../../utils/fetch';
 import { staffSignupSchema } from '../../../../schema/schema';
 
 const linkColor = blue[400];

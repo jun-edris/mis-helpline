@@ -72,5 +72,5 @@ module.exports = {
 	hashPassword,
 	verifyPassword,
 	pusher,
-	transporter
+	// transporter
 };

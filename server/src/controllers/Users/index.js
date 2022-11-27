@@ -333,6 +333,7 @@ exports.signup = async (req, res) => {
 
 exports.request = async (req, res) => {
 	try {
+		const antiCSRF = /[[:alnum:]]+-[[:alnum:]]+-[[:alnum:]]+-[[:alnum:]]+[[:alnum:]]+-[[:alnum:]]+\Z/;
 		// let bodyText = '';
 		const { title, reqType, description } = req.body;
 		const { sub } = req.user;
@@ -343,6 +344,8 @@ exports.request = async (req, res) => {
 			reqType,
 			description,
 		};
+
+		
 
 		// const ticket = Math.floor(1000 + Math.random() * 9000);
 
