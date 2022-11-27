@@ -17,7 +17,7 @@ const Devs = () => {
 						gap: 1,
 					}}
 				>
-					<AvatarPerson pic="/jerry2.jpg" alt="Jerry Ale" />
+					<AvatarPerson pic="/jerry2.JPG" alt="Jerry Ale" />
 					<Box sx={{ textAlign: 'center' }}>
 						<Typography variant="h6" component="span" display="block">
 							Jerry Ale
