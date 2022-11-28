@@ -10,7 +10,7 @@ const publicFetch = axios.create({
 	withCredentials: true,
 	credentials: 'include',
 	headers: {
-		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Origin': 'https://nutty-cyan-jeans.cyclic.app',
 		'Access-Control-Allow-Credentials': true,
 		'Content-Type': 'application/json',
 	},
